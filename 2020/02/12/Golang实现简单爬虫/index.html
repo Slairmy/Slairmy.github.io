@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Golang," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="作为Golang的初学者，写点爬虫小程序练练手肯定是个不错的选择，巩固下语法，虽然爬虫也比较简单，但是也学习到了一些包的使用以及其他的一点收获。要说爬虫，做过的肯定都爬过豆瓣电影top250，记得当初毕业设计的时候，学习python和scrapy做分布式爬虫设计，豆瓣电影就是作为学习练习的对象，虽然简单却也实在，一步一步来！现在用Golang重新实现一遍 这里没有涉及到数据入库操作，后面再加 小小">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Golang实现简单爬虫">
+<meta property="og:url" content="http://slairmy.github.io/2020/02/12/Golang%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%88%AC%E8%99%AB/index.html">
+<meta property="og:site_name" content="Slairmy&#39;Note">
+<meta property="og:description" content="作为Golang的初学者，写点爬虫小程序练练手肯定是个不错的选择，巩固下语法，虽然爬虫也比较简单，但是也学习到了一些包的使用以及其他的一点收获。要说爬虫，做过的肯定都爬过豆瓣电影top250，记得当初毕业设计的时候，学习python和scrapy做分布式爬虫设计，豆瓣电影就是作为学习练习的对象，虽然简单却也实在，一步一步来！现在用Golang重新实现一遍 这里没有涉及到数据入库操作，后面再加 小小">
+<meta property="article:published_time" content="2020-02-12T15:46:01.000Z">
+<meta property="article:modified_time" content="2020-02-12T18:10:21.759Z">
+<meta property="article:author" content="Slairmy">
+<meta property="article:tag" content="Golang">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://slairmy.github.io/2020/02/12/Golang实现简单爬虫/"/>
+
+
+
+
+
+  <title>Golang实现简单爬虫 | Slairmy'Note</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Slairmy'Note</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://slairmy.github.io/2020/02/12/Golang%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%88%AC%E8%99%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Slairmy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Slairmy'Note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Golang实现简单爬虫</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-12T23:46:01+08:00">
+                2020-02-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>作为Golang的初学者，写点爬虫小程序练练手肯定是个不错的选择，巩固下语法，虽然爬虫也比较简单，但是也学习到了一些包的使用以及其他的一点收获。要说爬虫，做过的肯定都爬过豆瓣电影top250，记得当初毕业设计的时候，学习python和scrapy做分布式爬虫设计，豆瓣电影就是作为学习练习的对象，虽然简单却也实在，一步一步来！现在用Golang重新实现一遍</p>
+<p><strong>这里没有涉及到数据入库操作，后面再加</strong></p>
+<h4 id="小小的封装一个downloader"><a href="#小小的封装一个downloader" class="headerlink" title="小小的封装一个downloader"></a>小小的封装一个downloader</h4><p>简单爬虫，不用登陆，不是JS渲染，像豆瓣top250这种比较适合入门吧！最基本的思路无非就是两种，一种是获取网页源码文本解析，另外一种就是ajax异步请求的接口，豆瓣电影就是前者需要下载网页源码进行解析。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">package downloader</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;io&#x2F;ioutil&quot;</span><br><span class="line">	&quot;net&#x2F;http&quot;</span><br><span class="line"></span><br><span class="line">	&quot;code.spider.com&#x2F;utils&#x2F;errors&quot;</span><br><span class="line">	&quot;golang.org&#x2F;x&#x2F;text&#x2F;encoding&#x2F;simplifiedchinese&quot;</span><br><span class="line">	&quot;golang.org&#x2F;x&#x2F;text&#x2F;transform&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; GetHTTPResponse Desc</span><br><span class="line">func GetHTTPResponse(url string, ok bool) ([]byte, error) &#123;</span><br><span class="line"></span><br><span class="line">	request, err :&#x3D; http.NewRequest(&quot;GET&quot;, url, nil)</span><br><span class="line">	request.Header.Add(&quot;User-Agent&quot;,</span><br><span class="line">		&quot;Mozilla&#x2F;5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;79.0.3945.130 Safari&#x2F;537.36&quot;)</span><br><span class="line"></span><br><span class="line">	client :&#x3D; http.DefaultClient</span><br><span class="line"></span><br><span class="line">	response, err :&#x3D; client.Do(request)</span><br><span class="line"></span><br><span class="line">	if err !&#x3D; nil &#123;</span><br><span class="line">		return nil, errors.ErrorRequest</span><br><span class="line">	&#125;</span><br><span class="line">	defer response.Body.Close()</span><br><span class="line">	if statusCode :&#x3D; response.StatusCode; statusCode &gt; 300 &amp;&amp; statusCode &lt; 500 &#123;</span><br><span class="line">		return nil, errors.ErrorStatus</span><br><span class="line">	&#125;</span><br><span class="line">	if ok &#123;</span><br><span class="line">		&#x2F;&#x2F; 转utf8</span><br><span class="line">		utf8Content :&#x3D; transform.NewReader(response.Body, simplifiedchinese.GBK.NewDecoder())</span><br><span class="line">		return ioutil.ReadAll(utf8Content)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	return ioutil.ReadAll(response.Body)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里一开始在调试结果的过程中会乱码，因为有些网页源码设置的编码格式不同，所以需要控制格式的转换，本想着给函数添加一个默认的参数(PHP)，结果发现<code>Golang函数不支持默认参数</code>就搞成上面的。</p>
+<h4 id="爬取代码"><a href="#爬取代码" class="headerlink" title="爬取代码"></a>爬取代码</h4><p>下载函数封装好之后就是进行源码解析了，之前在同花顺的时候也帮忙写过爬虫规则，通过<code>Xpath</code>语法写的规则，试用了下Golang的一些Xpath解析库，好像都不太好用(可能是对Xpath比css选择器更熟悉)，就直接换css选择器了！通过<code>goquery</code>这个库也很方便</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line">package douban</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;encoding&#x2F;json&quot;</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;regexp&quot;</span><br><span class="line">	&quot;strconv&quot;</span><br><span class="line">	&quot;strings&quot;</span><br><span class="line"></span><br><span class="line">	&quot;code.spider.com&#x2F;utils&#x2F;downloader&quot;</span><br><span class="line">	&quot;github.com&#x2F;PuerkitoBio&#x2F;goquery&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; DouBan data</span><br><span class="line">type DouBan struct &#123;</span><br><span class="line">	Rank        int    &#96;json:&quot;rank&quot;&#96;</span><br><span class="line">	MovieName   string &#96;json:&quot;movie_name&quot;&#96;</span><br><span class="line">	PicURL      string &#96;json:&quot;pic_url&quot;&#96;</span><br><span class="line">	Country     string &#96;json:&quot;country&quot;&#96;</span><br><span class="line">	Year        string &#96;json:&quot;year&quot;&#96;</span><br><span class="line">	MovieType   string &#96;json:&quot;movie_type&quot;&#96;</span><br><span class="line">	Star        string &#96;json:&quot;star&quot;&#96;</span><br><span class="line">	Director    string &#96;json:&quot;dorector&quot;&#96;</span><br><span class="line">	Descrpition string &#96;json:&quot;description&quot;&#96;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;const pfURL string &#x3D; &quot;http:&#x2F;&#x2F;www.piaofang.biz&#x2F;&quot;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; GetPiaoFangInfo body</span><br><span class="line">func GetPiaoFangInfo() ([]DouBan, error) &#123;</span><br><span class="line"></span><br><span class="line">	var top250 []DouBan</span><br><span class="line"></span><br><span class="line">	for page :&#x3D; 0; page &lt; 250; page +&#x3D; 25 &#123;</span><br><span class="line">		&#x2F;&#x2F; 获取信息</span><br><span class="line">		url :&#x3D; &quot;https:&#x2F;&#x2F;movie.douban.com&#x2F;top250?start&#x3D;&quot; + strconv.Itoa(page)</span><br><span class="line">		response, error :&#x3D; downloader.GetHTTPResponse(url, false)</span><br><span class="line">		if error !&#x3D; nil &#123;</span><br><span class="line">			fmt.Println(error)</span><br><span class="line">			return nil, error</span><br><span class="line">		&#125;</span><br><span class="line">		&#x2F;&#x2F; 重排名开始逐一获取信息</span><br><span class="line">		responseString :&#x3D; string(response)</span><br><span class="line">		document, err :&#x3D; goquery.NewDocumentFromReader(strings.NewReader(responseString))</span><br><span class="line">		if err !&#x3D; nil &#123;</span><br><span class="line">			return nil, err</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		document.Find(&quot;ol.grid_view li&quot;).Each(func(i int, selection *goquery.Selection) &#123;</span><br><span class="line"></span><br><span class="line">			rank, _ :&#x3D; strconv.Atoi(selection.Find(&quot;div.pic em&quot;).Text())</span><br><span class="line">			&#x2F;&#x2F;fmt.Println(rank)</span><br><span class="line">			movieName :&#x3D; selection.Find(&quot;span.title&quot;).Eq(0).Text()</span><br><span class="line">			picURL, exists :&#x3D; selection.Find(&quot;div.pic img&quot;).Attr(&quot;src&quot;)</span><br><span class="line">			if exists &#x3D;&#x3D; false &#123;</span><br><span class="line">				picURL &#x3D; &quot;No Address&quot;</span><br><span class="line">			&#125;</span><br><span class="line">			info :&#x3D; strings.Replace(selection.Find(&quot;div.bd p&quot;).Eq(0).Text(), &quot; &quot;, &quot;&quot;, -1)</span><br><span class="line">			tempInfo :&#x3D; strings.Split(info, &quot;\n&quot;)[1]</span><br><span class="line">			directorPattern :&#x3D; &quot;导演:(.*?)主&quot;</span><br><span class="line">			obj :&#x3D; regexp.MustCompile(directorPattern)</span><br><span class="line">			var director string</span><br><span class="line">			for _, subMatch :&#x3D; range obj.FindAllStringSubmatch(tempInfo, -1) &#123;</span><br><span class="line">				director &#x3D; strings.TrimSpace(subMatch[1])</span><br><span class="line">			&#125;</span><br><span class="line">			otherInfo :&#x3D; strings.Split(strings.Split(info, &quot;\n&quot;)[2], &quot;&#x2F;&quot;)</span><br><span class="line">			year :&#x3D; otherInfo[0]</span><br><span class="line">			country :&#x3D; otherInfo[1]</span><br><span class="line">			movieType :&#x3D; otherInfo[2]</span><br><span class="line"></span><br><span class="line">			star :&#x3D; selection.Find(&quot;div.star span.rating_num&quot;).Text()</span><br><span class="line">			description :&#x3D; selection.Find(&quot;div.info span.inq&quot;).Text()</span><br><span class="line"></span><br><span class="line">			item :&#x3D; DouBan&#123;</span><br><span class="line">				Rank:        rank,</span><br><span class="line">				MovieName:   movieName,</span><br><span class="line">				PicURL:      picURL,</span><br><span class="line">				Country:     country,</span><br><span class="line">				Year:        year,</span><br><span class="line">				MovieType:   movieType,</span><br><span class="line">				Star:        star,</span><br><span class="line">				Director:    director,</span><br><span class="line">				Descrpition: description,</span><br><span class="line">			&#125;</span><br><span class="line">			data, _ :&#x3D; json.Marshal(item)</span><br><span class="line">			fmt.Println(string(data))</span><br><span class="line">			top250 &#x3D; append(top250, item)</span><br><span class="line">			&#x2F;&#x2F;fmt.Println(top250)</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;</span><br><span class="line">	&#x2F;&#x2F;fmt.Println(len(top250))</span><br><span class="line">	return top250, nil</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里调试我是在项目根目录下写了个<code>main.go</code>来调用，应该是有种更加方便的方式通过<code>go build</code>编译二进制文件来执行的，下次添加数据库操作的时候一起研究一下再加上！</p>
+<h4 id="过程思考"><a href="#过程思考" class="headerlink" title="过程思考"></a>过程思考</h4><p>在写这个爬虫代码的过程中，爬虫虽然很简单，但是自己还是查看了很多资料，其中用的一些包也只是知道了，会用了，有想过去看下其中的源码，也有跳转过去看了，自己能力有限也看不懂，但是程序员确实不能只停留在会用的阶段，写PHP的时候也是这样的状态，但是看源码自己也看不懂，不知道怎么办，呜呜呜- -|，但是无论如何都不要放弃！加油</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Golang/" rel="tag"># Golang</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/09/Golang%E4%B8%AD%E7%9A%84json/" rel="next" title="Golang中的json">
+                <i class="fa fa-chevron-left"></i> Golang中的json
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/15/Golang%E4%B8%AD%E7%9A%84%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" rel="prev" title="Golang中的文件操作">
+                Golang中的文件操作 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Slairmy" />
+          <p class="site-author-name" itemprop="name">Slairmy</p>
+           
+              <p class="site-description motion-element" itemprop="description">Learn more</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Slairmy" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/slairmy/activities" target="_blank" title="ZhiHu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      ZhiHu
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#小小的封装一个downloader"><span class="nav-number">1.</span> <span class="nav-text">小小的封装一个downloader</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#爬取代码"><span class="nav-number">2.</span> <span class="nav-text">爬取代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#过程思考"><span class="nav-number">3.</span> <span class="nav-text">过程思考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2019 - 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Slairmy</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

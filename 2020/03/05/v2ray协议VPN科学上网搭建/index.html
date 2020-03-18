@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Tools," />
+  <meta name="keywords" content="科学上网,VPN," />
 
 
 
@@ -94,17 +94,21 @@
 
 
 
-<meta name="description" content="2019年的最后一天了，Hexo搭建的新博客迟迟未通过Github Page部署。新的一年开始，决定要把它部署好！2020年又是一个新的开始！ Hexo搭建个人博客通过官方文档也是很容易的，按照文档上面的操作，简单来说就分为几步，同时依赖nodejs的执行环境。 1、安装Hexo脚手架（全局安装） npm install -g hexo-cli 2、使用Hexo构建项目 Hexo init pro">
+<meta name="description" content="前一段时间SS和SSR协议的vpn疯狂封杀,再加上vutrl可用的vps越来越少(难搞),是时候该换其他稳定的协议了,前不久才知道v2ray这个协议,和其他协议搭建一样,v2ray同样有一键脚本,安装也很方便。由于原站访问比较慢,所以就自己记录下安装方式！  不绑定域名的搭建方式 centos 版  1、一键安装命令 1bash &lt;(curl -sL https:&#x2F;&#x2F;ra">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo 搭建简约版博客">
-<meta property="og:url" content="http://slairmy.github.io/2020/01/01/Hexo-%E6%90%AD%E5%BB%BA%E7%AE%80%E7%BA%A6%E7%89%88%E5%8D%9A%E5%AE%A2/index.html">
+<meta property="og:title" content="v2ray协议VPN科学上网搭建">
+<meta property="og:url" content="http://slairmy.github.io/2020/03/05/v2ray%E5%8D%8F%E8%AE%AEVPN%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E6%90%AD%E5%BB%BA/index.html">
 <meta property="og:site_name" content="Slairmy&#39;Note">
-<meta property="og:description" content="2019年的最后一天了，Hexo搭建的新博客迟迟未通过Github Page部署。新的一年开始，决定要把它部署好！2020年又是一个新的开始！ Hexo搭建个人博客通过官方文档也是很容易的，按照文档上面的操作，简单来说就分为几步，同时依赖nodejs的执行环境。 1、安装Hexo脚手架（全局安装） npm install -g hexo-cli 2、使用Hexo构建项目 Hexo init pro">
-<meta property="article:published_time" content="2019-12-31T16:00:42.000Z">
-<meta property="article:modified_time" content="2019-12-31T16:00:42.325Z">
+<meta property="og:description" content="前一段时间SS和SSR协议的vpn疯狂封杀,再加上vutrl可用的vps越来越少(难搞),是时候该换其他稳定的协议了,前不久才知道v2ray这个协议,和其他协议搭建一样,v2ray同样有一键脚本,安装也很方便。由于原站访问比较慢,所以就自己记录下安装方式！  不绑定域名的搭建方式 centos 版  1、一键安装命令 1bash &lt;(curl -sL https:&#x2F;&#x2F;ra">
+<meta property="og:image" content="http://slairmy.github.io/2020/03/05/v2ray%E5%8D%8F%E8%AE%AEVPN%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E6%90%AD%E5%BB%BA/success.png">
+<meta property="og:image" content="http://slairmy.github.io/2020/03/05/v2ray%E5%8D%8F%E8%AE%AEVPN%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E6%90%AD%E5%BB%BA/bbr.png">
+<meta property="article:published_time" content="2020-03-05T15:54:23.000Z">
+<meta property="article:modified_time" content="2020-03-05T16:25:00.181Z">
 <meta property="article:author" content="Slairmy">
-<meta property="article:tag" content="Tools">
+<meta property="article:tag" content="科学上网">
+<meta property="article:tag" content="VPN">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://slairmy.github.io/2020/03/05/v2ray%E5%8D%8F%E8%AE%AEVPN%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E6%90%AD%E5%BB%BA/success.png">
 
 
 
@@ -133,13 +137,13 @@
 
 
 
-  <link rel="canonical" href="http://slairmy.github.io/2020/01/01/Hexo-搭建简约版博客/"/>
+  <link rel="canonical" href="http://slairmy.github.io/2020/03/05/v2ray协议VPN科学上网搭建/"/>
 
 
 
 
 
-  <title>Hexo 搭建简约版博客 | Slairmy'Note</title>
+  <title>v2ray协议VPN科学上网搭建 | Slairmy'Note</title>
   
 
 
@@ -262,7 +266,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://slairmy.github.io/2020/01/01/Hexo-%E6%90%AD%E5%BB%BA%E7%AE%80%E7%BA%A6%E7%89%88%E5%8D%9A%E5%AE%A2/">
+    <link itemprop="mainEntityOfPage" href="http://slairmy.github.io/2020/03/05/v2ray%E5%8D%8F%E8%AE%AEVPN%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E6%90%AD%E5%BB%BA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Slairmy">
@@ -279,7 +283,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hexo 搭建简约版博客</h1>
+          <h1 class="post-title" itemprop="name headline">v2ray协议VPN科学上网搭建</h1>
         
 
         <div class="post-meta">
@@ -291,8 +295,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-01T00:00:42+08:00">
-                2020-01-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-05T23:54:23+08:00">
+                2020-03-05
               </time>
             
 
@@ -329,35 +333,29 @@
       
 
       
-        <p>2019年的最后一天了，Hexo搭建的新博客迟迟未通过Github Page部署。新的一年开始，决定要把它部署好！2020年又是一个新的开始！</p>
-<h4 id="Hexo搭建个人博客"><a href="#Hexo搭建个人博客" class="headerlink" title="Hexo搭建个人博客"></a>Hexo搭建个人博客</h4><p>通过<a href="https://hexo.io/zh-cn/docs" target="_blank" rel="noopener">官方文档</a>也是很容易的，按照文档上面的操作，简单来说就分为几步，同时依赖nodejs的执行环境。</p>
-<p>1、安装Hexo脚手架（全局安装）</p>
-<p><code>npm install -g hexo-cli</code></p>
-<p>2、使用Hexo构建项目</p>
-<p><code>Hexo init project-name</code></p>
-<p>3、安装所需包</p>
-<p><code>cd project-name &amp;&amp; npm install</code></p>
-<p>一次执行完上述步骤就可以在<code>project-name</code>目录下看到文件结构了：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.yml</span><br><span class="line">├── package.json</span><br><span class="line">├── scaffolds</span><br><span class="line">├── source</span><br><span class="line">|   ├── _drafts</span><br><span class="line">|   └── _posts</span><br><span class="line">└── themes</span><br></pre></td></tr></table></figure>
+        <p>前一段时间<code>SS</code>和<code>SSR</code>协议的vpn疯狂封杀,再加上<code>vutrl</code>可用的vps越来越少(难搞),是时候该换其他稳定的协议了,前不久才知道<code>v2ray</code>这个协议,和其他协议搭建一样,v2ray同样有一键脚本,安装也很方便。由于原站访问比较慢,所以就自己记录下安装方式！</p>
+<blockquote>
+<p>不绑定域名的搭建方式 centos 版</p>
+</blockquote>
+<p>1、一键安装命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sL https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;hijkpw&#x2F;scripts&#x2F;master&#x2F;centos_install_v2ray.sh)</span><br></pre></td></tr></table></figure>
 
-<p>在项目根目录下执行<code>Hexo server</code>默认访问本地4000端口即可看到页面，本身是一个快速搭建博客的工具，博客站点的很多配置都是通过配置项来设置的，主要的配置项文件是<code>_config.yml</code>。关于配置项具体看<a href="https://hexo.io/zh-cn/docs/configuration" target="_blank" rel="noopener">文档</a>介绍。</p>
-<h4 id="Github-Page部署"><a href="#Github-Page部署" class="headerlink" title="Github Page部署"></a>Github Page部署</h4><p>个人在搭建后并且修改部分配置之后，按照文档中的<a href="https://hexo.io/zh-cn/docs/github-pages" target="_blank" rel="noopener">部署步骤</a>部署主要有如下的坑：按照<code>Travis CI</code>的部署步骤无法修改<code>Github Page</code>下面的发布分支！这里做下记录。</p>
-<p>文档对于Github Page的部署有两种方式，一种是一键部署的简单方式，另一种是通过<code>Travis CI</code>(通过钩子自动检测主分支提交同步构建内容一样的gh-page分支)。这里我一开始使用的是后面那种部署方式：</p>
-<p>首先创建一个 slairmy.github.io 的仓库，然后步骤如下：</p>
-<p>1、将 <code>Travis CI</code> 添加到github的账户中</p>
-<p>2、在 <code>github</code> 的 <code>Applications settings</code> 添加 <code>Travis CI</code> 权限</p>
-<p>3、生成 <code>Personal Access Token</code> 并在 <code>Travis CI</code> 配置</p>
-<p>4、生成 <code>.travis.yml</code> 并写入如下配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">sudo: false</span><br><span class="line">language: node_js</span><br><span class="line">node_js:</span><br><span class="line">  - 10 # use nodejs v10 LTS</span><br><span class="line">cache: npm</span><br><span class="line">branches:</span><br><span class="line">  only:</span><br><span class="line">    - master # build master branch only</span><br><span class="line">script:</span><br><span class="line">  - hexo generate # generate static files</span><br><span class="line">deploy:</span><br><span class="line">  provider: pages</span><br><span class="line">  skip-cleanup: true</span><br><span class="line">  github-token: $GH_TOKEN</span><br><span class="line">  keep-history: true</span><br><span class="line">  on:</span><br><span class="line">    branch: master</span><br><span class="line">  local-dir: public</span><br></pre></td></tr></table></figure>
+<p>执行之后就是安装各种模块,安装成功之后的显示</p>
+<p><img src="/2020/03/05/v2ray%E5%8D%8F%E8%AE%AEVPN%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E6%90%AD%E5%BB%BA/success.png" alt="结果"></p>
+<p>其他一些查看状态命令:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">查看状态: bash &lt;(curl -sL https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;hijkpw&#x2F;scripts&#x2F;master&#x2F;centos_install_v2ray.sh) info</span><br><span class="line"></span><br><span class="line">v2ray管理: systemctl start&#x2F;restart&#x2F;stop v2ray</span><br><span class="line"></span><br><span class="line">卸载: bash &lt;(curl -sL https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;hijkpw&#x2F;scripts&#x2F;master&#x2F;centos_install_v2ray.sh) uninstall</span><br></pre></td></tr></table></figure>
 
-<p>推送到远程 master 分支之后，在 Travis Ci 中也显示构建成功了。但是访问确是README中的部分信息。而且在 Github Page 的设置信息中都没有显示其他的分支。</p>
-<p>查阅一些资料，发现 &lt;你的 GitHub 用户名&gt;.github.io 这种命名方式是只能构建 master 分支。也就是说 &lt;你的 GitHub 用户名&gt;.github.io 命名仓库的 Github page 只能从 master 分支发布。其他的项目页面不以 &lt;你的 GitHub 用户名&gt;.github.io 可以选择其他的分支作为发布源。</p>
-<p>所以最终选择了一键部署这种策略，一键部署需要安装一个npm包: 如下</p>
-<p><code>npm install hexo-deployer-git --save</code></p>
-<p>安装好了之后依次执行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &#x2F;&#x2F;可选</span><br><span class="line"></span><br><span class="line">hexo g</span><br><span class="line"></span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+<p>就目前v2ray协议确实比SS或者SSR协议更加稳定,就协议来说不采用任何伪装手段,之前搭SS还没几分钟就被封掉了,现在搭的几个v2ray协议的VPN还好,如果有域名的话建议参考原站的带伪装的脚本安装,按照步骤来也很简单!</p>
+<p>2、bbr优化</p>
+<p>如今不管是自建还是怎么样的VPS,肯定都会开启BBR加速,BBR是谷歌开源的解决网络拥塞的算法!但是搭建的VPS都开启了BBR加速就好像没加速一样,所以也就出现了各种魔改BBR,通过更好的系统参数调优<code>抢占</code>带宽！</p>
+<p>这里使用千影的BBR脚本,支持<code>CentOS 6+</code>、<code>Debian 8+</code>、<code>Ubuntu 14+</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget -N --no-check-certificate &quot;https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;chiakge&#x2F;Linux-NetSpeed&#x2F;master&#x2F;tcp.sh&quot;</span><br><span class="line"></span><br><span class="line">chmod +x tcp.sh</span><br><span class="line"></span><br><span class="line">.&#x2F;tcp.sh</span><br></pre></td></tr></table></figure>
 
-<p>发布完之后查看仓库发现一键部署之后的仓库文件和之前不是一键部署的仓库的gh-page分支的文件是一样的！可能是有什么操作不对，对于之前非一键部署操作，后面有发现继续补充。一键部署虽然简单方便，但是对于过程不是很清楚，相对于非一键部署要了解的东西更少，也是有得有失吧！</p>
+<p><img src="/2020/03/05/v2ray%E5%8D%8F%E8%AE%AEVPN%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E6%90%AD%E5%BB%BA/bbr.png" alt="bbr"></p>
+<p>里面有多种魔改BBR版本,不知道的就选锐速,看油管上的youtober上做过测试,锐速和BBR plus效果上相对优一点！选择魔改的BBR之前先安装相应的内核模块,不然可能出现模块安装成功却加载失败的提示！</p>
+<blockquote>
+<p>源站: <a href="https://www.hijk.pw/centos-one-click-install-v2ray/" target="_blank" rel="noopener">https://www.hijk.pw/centos-one-click-install-v2ray/</a></p>
+</blockquote>
 
       
     </div>
@@ -375,7 +373,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Tools/" rel="tag"># Tools</a>
+            <a href="/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/" rel="tag"># 科学上网</a>
+          
+            <a href="/tags/VPN/" rel="tag"># VPN</a>
           
         </div>
       
@@ -388,14 +388,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2020/02/15/Golang%E4%B8%AD%E7%9A%84%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" rel="next" title="Golang中的文件操作">
+                <i class="fa fa-chevron-left"></i> Golang中的文件操作
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/02/01/go%E8%AF%AD%E8%A8%80%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" rel="prev" title="go语言获取数据类型">
-                go语言获取数据类型 <i class="fa fa-chevron-right"></i>
+              <a href="/2020/03/19/docker%E6%89%93%E5%8C%85%E6%B8%B8%E6%88%8F%E5%B0%8F%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/" rel="prev" title="docker打包游戏小项目总结">
+                docker打包游戏小项目总结 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -448,17 +452,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -535,22 +530,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Hexo搭建个人博客"><span class="nav-number">1.</span> <span class="nav-text">Hexo搭建个人博客</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Github-Page部署"><span class="nav-number">2.</span> <span class="nav-text">Github Page部署</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
